@@ -1,16 +1,13 @@
 package echo;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketException;
 
 public class EchoServer {
-	private static final int PORT = 8000;
+	private static final int PORT = 7000;
 
 	public static void main(String[] args) {
 		ServerSocket serverSocket = null;
@@ -27,46 +24,14 @@ public class EchoServer {
 			InetSocketAddress inetSocketAddress = new InetSocketAddress(inetAddress, PORT);
 			// 호스트 번호와 포트 번호로 부터 소켓 주소를 작성
 			serverSocket.bind(inetSocketAddress);
-			System.out.println("[EchoServer] binding " + inetAddress.getHostAddress() + ":" + PORT);
+			log("binding " + inetAddress.getHostAddress() + ":" + PORT);
 
-			// 3. accept : 클라이언트로 부터 연결요청(Connect)을 기다린다.
-			Socket socket = serverSocket.accept();// blocking
-			InetSocketAddress inetRemoteSocketAddress = (InetSocketAddress) socket.getRemoteSocketAddress();
-			String remoteHostAddress = inetRemoteSocketAddress.getAddress().getHostAddress();
-			int remoteHostPort = inetRemoteSocketAddress.getPort();
-			System.out.println("[EchoServer] connected from client[" + remoteHostAddress + ":" + remoteHostPort + "]");
-			try {
-				// 4. IOStream 받아오기
-				InputStream is = socket.getInputStream();
-				OutputStream os = socket.getOutputStream();
-
-				while (true) {
-
-					// 5. 데이터 읽기
-					byte[] buffer = new byte[256];
-					int readByteCount = is.read(buffer);// blocking
-					if (readByteCount == -1) {
-						// 정상종료 : remote socket이 close() 메소드를 통해서 정상적으로 소켓을 닫은 경우
-						System.out.println("[EchoServer] closed by client");
-						break;
-					}
-
-					String data = new String(buffer, 0, readByteCount, "UTF-8");
-					System.out.println("[EchoServer] received : " + data);
-
-					// 6. 데이터 쓰기
-					os.write(data.getBytes("UTF-8"));
-				}
-			} catch (SocketException e) {
-				System.out.println("[EchoServer] abnormal closed by client");
-			} catch (IOException e) {
-				e.printStackTrace();
-			} finally {
-				// 7. Socket 자원정리
-				if (socket != null && socket.isClosed() == false) {
-					socket.close();
-				}
+			// 3. accept : 클라이언트로 부터 연결요청(Connect)을 기다린다
+			while (true) {
+				Socket socket = serverSocket.accept();// blocking
+				new EchoServerReceiveThread(socket).start();
 			}
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
@@ -81,7 +46,9 @@ public class EchoServer {
 
 		}
 
-
 	}
 
+	public static void log(String log) {
+		System.out.println("[Echo Server#" + Thread.currentThread().getId() + "]" + log);
+	}
 }
