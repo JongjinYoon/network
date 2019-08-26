@@ -6,7 +6,7 @@ import java.net.DatagramSocket;
 import java.net.InetSocketAddress;
 import java.util.Scanner;
 
-public class UDPTimeElient {
+public class UDPTimeClient {
 	private static final String SERVER_IP = "192.168.1.9";
 
 	public static void main(String[] args) {
