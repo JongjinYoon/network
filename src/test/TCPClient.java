@@ -15,6 +15,16 @@ public class TCPClient {
 			// 1. 소켓 생성
 			socket = new Socket();
 
+			// 1-1. socket buffer size 확인
+			int receiveBufferSize = socket.getReceiveBufferSize();
+			int sendBufferSize = socket.getSendBufferSize();
+			System.out.println(receiveBufferSize + ":" + sendBufferSize);
+			
+			//1-2. socket size 변경
+			socket.setReceiveBufferSize(1024*10);
+			socket.setSendBufferSize(1024*10);
+			System.out.println(receiveBufferSize + ":" + sendBufferSize);
+			
 			// 2. 서버연결
 			InetSocketAddress inetSocketAddress = new InetSocketAddress(SERVER_IP, SERVER_PORT);
 

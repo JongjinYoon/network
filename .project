@@ -14,4 +14,11 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>chat-exe</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC/%EA%B0%95%EC%9D%98/Network%20Programming-20190823T043629Z-001/Network%20Programming/chat-ex/chat-exe</locationURI>
+		</link>
+	</linkedResources>
 </projectDescription>
