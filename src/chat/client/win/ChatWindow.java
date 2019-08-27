@@ -19,8 +19,8 @@ public class ChatWindow {
 	private Frame frame;
 	private Panel pannel;
 	private Button buttonSend;
-	private TextField textField;
-	private TextArea textArea;
+	public static TextField textField;
+	public static TextArea textArea;
 
 	public ChatWindow(String name) {
 		frame = new Frame(name);
@@ -28,6 +28,7 @@ public class ChatWindow {
 		buttonSend = new Button("Send");
 		textField = new TextField();
 		textArea = new TextArea(30, 80);
+		
 	}
 
 	public void show() {
@@ -79,7 +80,7 @@ public class ChatWindow {
 	
 	private void sendMessage() {
 		String message = textField.getText();
-		System.out.println("send" + message);
+		System.out.println("send : " + message);
 		updateTextArea(message);
 		textField.setText("");
 		textField.requestFocus();

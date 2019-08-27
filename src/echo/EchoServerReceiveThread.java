@@ -21,7 +21,7 @@ public class EchoServerReceiveThread extends Thread {
 		InetSocketAddress inetRemoteSocketAddress = (InetSocketAddress) socket.getRemoteSocketAddress();
 
 		EchoServer.log(" connected from client[" + inetRemoteSocketAddress.getAddress().getHostAddress() + ":"
-				+ inetRemoteSocketAddress.getPort() + "]");
+				+ inetRemoteSocketAddress.getPort() + "]");//여기에 사용자명
 
 		try {
 			// 4. IOStream 생성하

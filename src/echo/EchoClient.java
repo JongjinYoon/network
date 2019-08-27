@@ -39,7 +39,7 @@ public class EchoClient {
 				
 				String line = s.nextLine();
 				
-				if ("exit".equals(line)) {
+				if ("quit".equals(line)) {
 					break;
 				}
 				
