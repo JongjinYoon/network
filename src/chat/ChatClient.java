@@ -10,17 +10,16 @@ import java.net.Socket;
 import java.util.Scanner;
 
 public class ChatClient {
-	private static String SERVER_IP = "192.168.1.9";
+	public static String SERVER_IP = "192.168.1.9";
 	private static int SERVER_PORT = 7000;
 
 	public static void main(String[] args) {
 		Socket socket = null;
 		Scanner s = new Scanner(System.in);
 		try {
-			
+
 			socket = new Socket();
 
-			
 			socket.connect(new InetSocketAddress(SERVER_IP, SERVER_PORT));
 
 			BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
@@ -32,6 +31,7 @@ public class ChatClient {
 			pw.flush();
 			String ack = br.readLine();
 			System.out.println(ack);
+
 			new ChatClientThread(socket).start();
 
 			while (true) {

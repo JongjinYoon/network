@@ -24,14 +24,12 @@ public class ChatServerThread extends Thread {
 	public void run() {
 
 		try {
-			
+
 			BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
 			PrintWriter pw = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8"), true);
-			
 
 			while (true) {
 
-				
 				String data = br.readLine();
 				if (data == null) {
 					ChatServer.log(" 클라이언트로 부터 연결 끊김");
@@ -51,7 +49,7 @@ public class ChatServerThread extends Thread {
 //				}
 
 				switch (tokens[0]) {
-				
+
 				case "join":
 					doJoin(tokens[1], pw);
 					break;

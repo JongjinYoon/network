@@ -8,23 +8,22 @@ import java.net.SocketException;
 
 public class ChatClientThread extends Thread {
 	private Socket socket;
-	
+
 	public ChatClientThread(Socket socket) {
 		this.socket = socket;
-		
+
 	}
 
 	@Override
 	public void run() {
-		
+
 		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
-			
-			
+
 			while (true) {
 				String msg = br.readLine();
-				
-				if(msg==null) 
+
+				if (msg == null)
 					break;
 				System.out.println(msg);
 			}
@@ -42,5 +41,5 @@ public class ChatClientThread extends Thread {
 			}
 		}
 	}
-	
+
 }

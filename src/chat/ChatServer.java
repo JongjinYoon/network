@@ -11,19 +11,15 @@ import java.util.List;
 
 public class ChatServer {
 	private static final int PORT = 7000;
-	
-	
+
 	public static void main(String[] args) {
 		ServerSocket serverSocket = null;
 		List<Writer> listWriters = new ArrayList<Writer>();
+
 		try {
-			
 			serverSocket = new ServerSocket();
 
-			InetAddress inetAddress = InetAddress.getLocalHost();
-
-			InetSocketAddress inetSocketAddress = new InetSocketAddress(inetAddress, PORT);
-			serverSocket.bind(inetSocketAddress);
+			serverSocket.bind(new InetSocketAddress(InetAddress.getLocalHost(), PORT));
 
 			while (true) {
 				Socket socket = serverSocket.accept();
