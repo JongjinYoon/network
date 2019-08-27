@@ -23,9 +23,8 @@ public class ChatClientThread extends Thread {
 			while (true) {
 				String msg = br.readLine();
 
-				if (msg == null)
-					break;
 				System.out.println(msg);
+				System.out.print(">>");
 			}
 		} catch (SocketException e) {
 			ChatServer.log(" closed by client");

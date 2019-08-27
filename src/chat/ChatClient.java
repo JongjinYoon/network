@@ -33,11 +33,9 @@ public class ChatClient {
 			System.out.println(ack);
 
 			new ChatClientThread(socket).start();
-
+			System.out.print(">>");
 			while (true) {
-
-				System.out.print(">>");
-
+				
 				String line = s.nextLine();
 
 				if ("quit".equals(line)) {
