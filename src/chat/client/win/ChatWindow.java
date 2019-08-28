@@ -13,22 +13,23 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.net.Socket;
 
 public class ChatWindow {
 
 	private Frame frame;
 	private Panel pannel;
 	private Button buttonSend;
-	public static TextField textField;
-	public static TextArea textArea;
+	private TextField textField;
+	private TextArea textArea;
 
-	public ChatWindow(String name) {
+	public ChatWindow(String name, Socket socket) {
 		frame = new Frame(name);
 		pannel = new Panel();
 		buttonSend = new Button("Send");
 		textField = new TextField();
 		textArea = new TextArea(30, 80);
-		
+		new ChatWindowThread(socket).start();
 	}
 
 	public void show() {
@@ -48,7 +49,7 @@ public class ChatWindow {
 			@Override
 			public void keyPressed(KeyEvent event) {
 				char keyCode = event.getKeyChar();
-				if(keyCode == KeyEvent.VK_ENTER) {
+				if (keyCode == KeyEvent.VK_ENTER) {
 					sendMessage();
 				}
 			}
@@ -73,11 +74,12 @@ public class ChatWindow {
 		frame.setVisible(true);
 		frame.pack();
 	}
+
 	private void updateTextArea(String message) {
 		textArea.append(message);
 		textArea.append("\n");
 	}
-	
+
 	private void sendMessage() {
 		String message = textField.getText();
 		System.out.println("send : " + message);

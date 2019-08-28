@@ -37,15 +37,15 @@ public class ChatClientApp {
 			// 2. connect to server
 			socket.connect(new InetSocketAddress(SERVER_IP, SERVER_PORT));
 			log("채팅방에 입장하셨습니다.");
-			new ChatWindow(name).show();
-			new ChatClientThread(socket).start();
+			new ChatWindow(name, socket).show();
+			new ChatWindowThread(socket).start();
 			// 3. create iostream
-			BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
 			PrintWriter pw = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8"), true);
 			// 4. join protocol 구현
 			String join = "join:" + name;
-            pw.println(join);
-            
+			pw.println(join);
+			pw.flush();
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
@@ -60,8 +60,9 @@ public class ChatClientApp {
 				e.printStackTrace();
 			}
 		}
-		
+
 	}
+
 	public static void log(String log) {
 		System.out.println(log);
 	}
